@@ -8,26 +8,26 @@
 
 import Foundation
 
-struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
-    typealias Index = Array<Element>.Index
-    typealias Iterator = Array<Element>.Iterator
+public struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
+    public typealias Index = Array<Element>.Index
+    public typealias Iterator = Array<Element>.Iterator
     private var elements: Array<Element>
     
-    let max: Int
+    public let max: Int
     
-    var startIndex: Index {
+    public var startIndex: Index {
         return elements.startIndex
     }
     
-    var endIndex: Index {
+    public var endIndex: Index {
         return elements.endIndex
     }
     
-    init(elements: Element..., max: Int = .max) {
+    public init(elements: Element..., max: Int = .max) {
         self.init(array: elements, max: max)
     }
     
-    init(array: [Element], max: Int = .max) {
+    public init(array: [Element], max: Int = .max) {
         self.max = max
         self.elements = array
         
@@ -36,11 +36,11 @@ struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
         }
     }
     
-    func makeIterator() -> IndexingIterator<Array<Element>> {
+    public func makeIterator() -> IndexingIterator<Array<Element>> {
         return elements.makeIterator()
     }
     
-    subscript(position: Index) -> Iterator.Element {
+    public subscript(position: Index) -> Iterator.Element {
         get {
             return elements[position]
         }
@@ -49,12 +49,12 @@ struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
         }
     }
     
-    mutating func append(_ element: Element) {
+    public mutating func append(_ element: Element) {
         makeSpaceForNewElementIfNecessary()
         elements.append(element)
     }
     
-    mutating func insert(_ newElement: Element, at position: Int) {
+    public mutating func insert(_ newElement: Element, at position: Int) {
         makeSpaceForNewElementIfNecessary()
         elements.insert(newElement, at: position)
     }

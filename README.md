@@ -1,2 +1,2 @@
 # BoundedArray
-An array with a bounded maximum count implemented in Swift.
+An array with a bounded count implemented in Swift.

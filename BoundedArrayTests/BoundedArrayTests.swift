@@ -21,30 +21,30 @@ final class BoundedArrayTests: XCTestCase {
     // MARK: Bounding Behavior
     
     func testInitBounding() {
-        let max = 1
-        let boundedArray = BoundedArray(elements: "☝️", "✌️", max: max)
+        let limit = 1
+        let boundedArray = BoundedArray(elements: "☝️", "✌️", limit: limit)
         
-        XCTAssert(boundedArray.count <= max, "A BoundedArray should not breach max count on initialization.")
+        XCTAssert(boundedArray.count <= limit, "A BoundedArray should not breach count limit on initialization.")
         
         XCTAssert(boundedArray.contains("✌️"), "A BoundedArray should make room for new elements in FIFO order on initialization.")
     }
     
     func testAppendBounding() {
-        let max = 1
-        var boundedArray = BoundedArray<String>(max: max)
+        let limit = 1
+        var boundedArray = BoundedArray<String>(limit: limit)
         boundedArray.append("🥇")
         boundedArray.append("🥈")
         
-        XCTAssert(boundedArray.count <= max, "A BoundedArray should not breach max count when appending.")
+        XCTAssert(boundedArray.count <= limit, "A BoundedArray should not breach count limit when appending.")
         XCTAssert(boundedArray.contains("🥈"), "A BoundedArray should make room for new elements in FIFO order when appending.")
     }
     
     func testInsertBounding() {
-        let max = 2
-        var boundedArray = BoundedArray(elements: "🌞", "🌚", max: max)
+        let limit = 2
+        var boundedArray = BoundedArray(elements: "🌞", "🌚", limit: limit)
         boundedArray.insert("🌝", at: 1)
         
-        XCTAssert(boundedArray.count <= max, "A BoundedArray should not breach max count when inserting.")
+        XCTAssert(boundedArray.count <= limit, "A BoundedArray should not breach count limit when inserting.")
         XCTAssert(boundedArray.contains("🌚"), "A BoundedArray should make room for new elements in FIFO order when inserting.")
     }
     
@@ -52,7 +52,7 @@ final class BoundedArrayTests: XCTestCase {
     
     func testInitOrdering() {
         let array = [0, 1, 2, 3, 4]
-        let boundedArray = BoundedArray(array: array, max: 5)
+        let boundedArray = BoundedArray(array: array, limit: 5)
         
         zip(array, boundedArray).forEach({
             XCTAssert($0.0 == $0.1, "Arrays should maintain their order after initialization.")
@@ -61,7 +61,7 @@ final class BoundedArrayTests: XCTestCase {
     
     func testAppendOrdering() {
         let array = [0, 1, 2, 3, 4]
-        var boundedArray = BoundedArray(array: array, max: 6)
+        var boundedArray = BoundedArray(array: array, limit: 6)
         
         let elementToAppend = 5
         boundedArray.append(elementToAppend)
@@ -76,7 +76,7 @@ final class BoundedArrayTests: XCTestCase {
     
     func testInsertOrdering() {
         let array = [0, 1, 2, 3, 4]
-        var boundedArray = BoundedArray(array: array, max: 5)
+        var boundedArray = BoundedArray(array: array, limit: 5)
         
         let elementToInsert = 5
         boundedArray.insert(elementToInsert, at: 0)

@@ -13,7 +13,7 @@ public struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
     public typealias Iterator = Array<Element>.Iterator
     private var elements: Array<Element>
     
-    public let max: Int
+    public let limit: Int
     
     public var startIndex: Index {
         return elements.startIndex
@@ -23,15 +23,15 @@ public struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
         return elements.endIndex
     }
     
-    public init(elements: Element..., max: Int = .max) {
-        self.init(array: elements, max: max)
+    public init(elements: Element..., limit: Int = .max) {
+        self.init(array: elements, limit: limit)
     }
     
-    public init(array: [Element], max: Int = .max) {
-        self.max = max
+    public init(array: [Element], limit: Int = .max) {
+        self.limit = limit
         self.elements = array
         
-        while elements.count > max {
+        while elements.count > limit {
             elements.removeFirst()
         }
     }
@@ -60,7 +60,7 @@ public struct BoundedArray<Element>: MutableCollection, RandomAccessCollection {
     }
     
     private mutating func makeSpaceForNewElementIfNecessary() {
-        while elements.count > max - 1 {
+        while elements.count > limit - 1 {
             elements.removeFirst()
         }
     }
